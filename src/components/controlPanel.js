@@ -1,24 +1,27 @@
+// src/components/controlPanel.js
+
 export function createControlPanel() {
-  const panel = document.getElementById('control-panel');
-  panel.innerHTML = ''; // Clear if regenerated
+  const panel = document.createElement('div');
+  panel.id = 'control-panel';
 
   const buttons = [
-    { id: 'randomise', label: 'Randomise' },
-    { id: 'solve', label: 'Solve it' },
-    { id: 'check', label: 'Check' },
-    { id: 'speed', label: 'Speed: Fast' }
+    { id: 'randomise', text: 'Randomise' },
+    { id: 'solve', text: 'Solve it' },
+    { id: 'stuck', text: 'Stuck?' },
+    { id: 'speed', text: 'Speed: Fast' }
   ];
 
-  buttons.forEach(btn => {
-    const div = document.createElement('div');
-    div.className = 'control-button';
-    div.id = btn.id;
-    div.textContent = btn.label;
-    panel.appendChild(div);
-  });
-}
+  buttons.forEach(({ id, text }) => {
+    const buttonWrapper = document.createElement('div');
+    buttonWrapper.classList.add('control-button');
 
-// You can remove setupButtonEvents entirely OR leave it empty if needed
-export function setupButtonEvents() {
-  // No default alerts here anymore
+    const button = document.createElement('button');
+    button.id = id;
+    button.textContent = text;
+
+    buttonWrapper.appendChild(button);
+    panel.appendChild(buttonWrapper);
+  });
+
+  document.body.appendChild(panel);
 }
