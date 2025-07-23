@@ -13,9 +13,26 @@ export const samplePuzzle = [
 ];
 
 export function createSudokuBoard() {
-  const board = document.getElementById('sudoku-board');
-  board.innerHTML = ''; // Clear if already rendered
+  let layout = document.getElementById('layout');
 
+  // If #layout doesn't exist yet, create and append it to body
+  if (!layout) {
+    layout = document.createElement('div');
+    layout.id = 'layout';
+    document.body.appendChild(layout);
+  }
+
+  // Clear previous board if it exists
+  let board = document.getElementById('sudoku-board');
+  if (!board) {
+    board = document.createElement('div');
+    board.id = 'sudoku-board';
+    layout.appendChild(board);
+  } else {
+    board.innerHTML = '';
+  }
+
+  // Create 9x9 input grid
   for (let row = 0; row < 9; row++) {
     for (let col = 0; col < 9; col++) {
       const cell = document.createElement('input');

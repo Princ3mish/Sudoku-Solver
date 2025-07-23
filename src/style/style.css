@@ -26,65 +26,127 @@ body {
 #sudoku-board {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
   gap: 2px;
-  width: 60%;
-  aspect-ratio: 1 / 1;
-  background: #000;
+  width: 90vmin;
+  height: 90vmin;
+  max-width: 600px;
+  max-height: 600px;
+  background: #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
   padding: 10px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-  border-radius: 20px;
 }
-
+@media (max-width: 600px) {
+  #sudoku-board {
+    width: 95vmin;
+    height: 95vmin;
+    max-width: 95vmin;
+    max-height: 95vmin;
+  }
+}
 .sudoku-cell {
   width: 100%;
   height: 100%;
   text-align: center;
   font-size: 1.5rem;
-  border: none;
+  border: 1px solid #333;
+  box-sizing: border-box;
   outline: none;
+  font-weight: normal; /* default for user input */
   background-color: white;
-  color: black;
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
 }
 
+/* Pre-filled cells (readonly) should appear bold */
+.sudoku-cell[readonly] {
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+/* Thicker borders for 3x3 subgrids */
+.sudoku-cell:nth-child(9n+1) {
+  border-left-width: 2px;
+}
+
+.sudoku-cell:nth-child(-n+9) {
+  border-top-width: 2px;
+}
+
+.sudoku-cell:nth-child(9n) {
+  border-right-width: 2px;
+}
+
+.sudoku-cell:nth-child(n+73) {
+  border-bottom-width: 2px;
+}
+
+
 #control-panel {
-  position: absolute;
+  position: fixed;
   top: 50%;
-  right: 30px;
+  right: 2vw;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.4); /* Slightly darker */
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  z-index: 10;
-  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  border-radius: 12px;
+  z-index: 1000;
 }
 
+
+/* Buttons inside the panel */
 .control-button {
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .control-button button {
-  width: 130px;
-  padding: 12px 0;
-  font-size: 16px;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  background: #111;
+  color: white;
   border: none;
-  border-radius: 10px;
-  background: linear-gradient(145deg, #3a3a3a, #1a1a1a);
-  color: #fff;
-  font-weight: bold;
+  border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
 }
 
 .control-button button:hover {
-  background-color: #444;
-  transform: translateY(-3px);
+  background: #444;
+  transform: scale(1.05);
+}
+
+/* Layout container for board + panel */
+#layout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 20px;
+}
+
+/* Sudoku board itself (you probably already have this) */
+#sudoku-board {
+  flex: 1 1 500px;
+}
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+  #layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #control-panel {
+    width: 90%;
+    max-width: 400px;
+  }
 }
 
 .control-button button:active {
