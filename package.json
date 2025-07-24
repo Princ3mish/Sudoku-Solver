@@ -4,11 +4,15 @@
   "description": "Sudoku Solver & Visualizer",
   "main": "src/index.js",
   "scripts": {
-    "dev": "webpack serve --mode development --open"
+    "dev": "webpack serve --mode development --open",
+    "build": "webpack --mode production"
   },
   "keywords": [],
   "author": "Your Name",
   "license": "ISC",
+  "engines": {
+    "node": "18.x"
+  },
   "devDependencies": {
     "@babel/core": "^7.28.0",
     "@babel/preset-env": "^7.28.0",
